@@ -1,30 +1,29 @@
 int ledVerde = 2;
 int ledAmarelo = 4;
 int ledVermelho = 5;
-int Altitude,
-    Temperatura,
-    Tensao,
-    GpsLatitude,
-    GpsLongitude,
-    GpsAltura,
-    GiroscopioR,
-    GiroscopioP,
-    GiroscopioY,
-    AcelerometroR,
-    AcelerometroP,
-    AcelerometroY,
-    MagnetometroR,
-    MagnetometroP,
-    MagnetometroY,
-    cont;
-int transmiter[16];
+int Altitude;
+int Temperatura;
+int Tensao;
+int GpsLatitude;
+int GpsLongitude;
+int GpsAltura;
+int GiroscopioR;
+int GiroscopioP;
+int GiroscopioY;
+int AcelerometroR;
+int AcelerometroP;
+int AcelerometroY;
+int MagnetometroR;
+int MagnetometroP;
+int MagnetometroY;
+int cont;
+int transmitter[15];
 
 void setup() {
   Serial.begin(9600);
   pinMode(ledVerde, OUTPUT);
   pinMode(ledAmarelo, OUTPUT);
   pinMode(ledVermelho, OUTPUT);
-  int transmiter[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 }
 
 void loop() {
@@ -43,32 +42,33 @@ void loop() {
   MagnetometroP = random(300);
   MagnetometroR = random(300);
   MagnetometroY = random(300);
-  transmiter[0] = cont;
-  transmiter[1] = Altitude;
-  transmiter[2] = Temperatura;
-  transmiter[3] = Tensao;
-  transmiter[4] = GpsLatitude;
-  transmiter[5] = GpsLongitude;
-  transmiter[6] = GpsAltura;
-  transmiter[7] = GiroscopioR;
-  transmiter[8] = GiroscopioP;
-  transmiter[9] = GiroscopioY;
-  transmiter[10] = AcelerometroR;
-  transmiter[11] = AcelerometroP;
-  transmiter[12] = AcelerometroY;
-  transmiter[13] = MagnetometroP;
-  transmiter[14] = MagnetometroR;
-  transmiter[15] = MagnetometroY;
   cont = cont + 1;
-  delay(1000);
+  transmitter[0] = cont;
+  transmitter[1] = Altitude;
+  transmitter[2] = Temperatura;
+  transmitter[3] = Tensao;
+  transmitter[4] = GpsLatitude;
+  transmitter[5] = GpsLongitude;
+  transmitter[6] = GpsAltura;
+  transmitter[7] = GiroscopioR;
+  transmitter[8] = GiroscopioP;
+  transmitter[9] = GiroscopioY;
+  transmitter[10] = AcelerometroR;
+  transmitter[11] = AcelerometroP;
+  transmitter[12] = AcelerometroY;
+  transmitter[13] = MagnetometroP;
+  transmitter[14] = MagnetometroR;
+  transmitter[15] = MagnetometroY;
+  digitalWrite(ledVermelho, HIGH);
   for (int i = 0; i < 15; i++) {
-    Serial.print(cont);
-    Serial.print(Altitude);
-    Serial.print(Temperatura);
-    Serial.print(Tensao);
-    Serial.print(GpsLatitude);
-    Serial.print(GpsLongitude);
-    Serial.print(GpsAltura);
-    // Serial.println(transmiter[i]);
+    Serial.println(transmitter[i]);
+    if (i == 0) {
+      Serial.print("Contador ");
+    }
+    delay(20);
   }
+  digitalWrite(ledVermelho, LOW);
+  digitalWrite(ledVerde, HIGH);
+  delay(600);
+  digitalWrite(ledVerde, LOW);
 }
