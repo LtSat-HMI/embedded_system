@@ -1,5 +1,4 @@
-int ledVerde = 2;
-int ledAmarelo = 4;
+int ledBranco = 2;
 int ledVermelho = 5;
 int Altitude;
 int Temperatura;
@@ -17,16 +16,16 @@ int MagnetometroR;
 int MagnetometroP;
 int MagnetometroY;
 int cont;
-int transmitter[15];
+int transmitter[15]; 
 
 void setup() {
   Serial.begin(9600);
-  pinMode(ledVerde, OUTPUT);
-  pinMode(ledAmarelo, OUTPUT);
+  pinMode(ledBranco, OUTPUT);
   pinMode(ledVermelho, OUTPUT);
 }
 
 void loop() {
+  digitalWrite(ledVermelho, HIGH);
   Altitude = random(300);
   Temperatura = random(900);
   Tensao = random(1, 4);
@@ -59,16 +58,12 @@ void loop() {
   transmitter[13] = MagnetometroP;
   transmitter[14] = MagnetometroR;
   transmitter[15] = MagnetometroY;
-  digitalWrite(ledVermelho, HIGH);
   for (int i = 0; i < 15; i++) {
     Serial.println(transmitter[i]);
-    if (i == 0) {
-      Serial.print("Contador ");
-    }
     delay(20);
   }
   digitalWrite(ledVermelho, LOW);
-  digitalWrite(ledVerde, HIGH);
+  digitalWrite(ledBranco, HIGH);
   delay(600);
-  digitalWrite(ledVerde, LOW);
+  digitalWrite(ledBranco, LOW);
 }
